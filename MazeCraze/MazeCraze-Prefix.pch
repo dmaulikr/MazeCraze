@@ -14,4 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    //MazeCraze
+    #import "MCConstants.h"
+    #import "Singleton.h"
 #endif

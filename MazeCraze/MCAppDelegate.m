@@ -7,6 +7,7 @@
 //
 
 #import "MCAppDelegate.h"
+#import "MCSuperController.h"
 
 @implementation MCAppDelegate
 
@@ -18,6 +19,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    MCSuperController *superController = [MCSuperController sharedInstance];
+    [self.window setRootViewController:superController];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

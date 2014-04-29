@@ -22,6 +22,18 @@
 		D233BED4190F2C0C00775672 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D233BEB8190F2C0C00775672 /* CoreData.framework */; };
 		D233BEDC190F2C0C00775672 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D233BEDA190F2C0C00775672 /* InfoPlist.strings */; };
 		D233BEDE190F2C0C00775672 /* MazeCrazeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEDD190F2C0C00775672 /* MazeCrazeTests.m */; };
+		D233BEEA190F2C4700775672 /* MCSuperController.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEE9190F2C4700775672 /* MCSuperController.m */; };
+		D233BEF2190F310500775672 /* MCLevelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEF1190F310500775672 /* MCLevelManager.m */; };
+		D233BEF6190F316100775672 /* Level.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEF5190F316100775672 /* Level.m */; };
+		D233BEFA190F355D00775672 /* SettingService.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEF9190F355D00775672 /* SettingService.m */; };
+		D233BEFD190F359D00775672 /* MCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BEFC190F359D00775672 /* MCConstants.m */; };
+		D233BEFF190F366D00775672 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D233BEFE190F366C00775672 /* CoreMotion.framework */; };
+		D233BF02190F38F500775672 /* Puck.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF01190F38F500775672 /* Puck.m */; };
+		D233BF05190F390900775672 /* MCMazeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF04190F390900775672 /* MCMazeVC.m */; };
+		D233BF0A190F3BCF00775672 /* MCPuckManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF09190F3BCF00775672 /* MCPuckManager.m */; };
+		D233BF0D190F3EAD00775672 /* MotionService.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF0C190F3EAD00775672 /* MotionService.m */; };
+		D233BF11190F41A200775672 /* MCPuckView.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF10190F41A200775672 /* MCPuckView.m */; };
+		D233BF14190F41B000775672 /* MCLevelView.m in Sources */ = {isa = PBXBuildFile; fileRef = D233BF13190F41B000775672 /* MCLevelView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +65,31 @@
 		D233BED9190F2C0C00775672 /* MazeCrazeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MazeCrazeTests-Info.plist"; sourceTree = "<group>"; };
 		D233BEDB190F2C0C00775672 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D233BEDD190F2C0C00775672 /* MazeCrazeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MazeCrazeTests.m; sourceTree = "<group>"; };
+		D233BEE8190F2C4700775672 /* MCSuperController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSuperController.h; sourceTree = "<group>"; };
+		D233BEE9190F2C4700775672 /* MCSuperController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSuperController.m; sourceTree = "<group>"; };
+		D233BEEE190F2CE700775672 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		D233BEF0190F310500775672 /* MCLevelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLevelManager.h; sourceTree = "<group>"; };
+		D233BEF1190F310500775672 /* MCLevelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLevelManager.m; sourceTree = "<group>"; };
+		D233BEF4190F316100775672 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		D233BEF5190F316100775672 /* Level.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Level.m; sourceTree = "<group>"; };
+		D233BEF8190F355D00775672 /* SettingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingService.h; sourceTree = "<group>"; };
+		D233BEF9190F355D00775672 /* SettingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingService.m; sourceTree = "<group>"; };
+		D233BEFB190F359D00775672 /* MCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCConstants.h; sourceTree = "<group>"; };
+		D233BEFC190F359D00775672 /* MCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCConstants.m; sourceTree = "<group>"; };
+		D233BEFE190F366C00775672 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		D233BF00190F38F500775672 /* Puck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Puck.h; sourceTree = "<group>"; };
+		D233BF01190F38F500775672 /* Puck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Puck.m; sourceTree = "<group>"; };
+		D233BF03190F390900775672 /* MCMazeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMazeVC.h; sourceTree = "<group>"; };
+		D233BF04190F390900775672 /* MCMazeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCMazeVC.m; sourceTree = "<group>"; };
+		D233BF07190F3B6800775672 /* MCMazeVCDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCMazeVCDelegate.h; sourceTree = "<group>"; };
+		D233BF08190F3BCF00775672 /* MCPuckManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPuckManager.h; sourceTree = "<group>"; };
+		D233BF09190F3BCF00775672 /* MCPuckManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPuckManager.m; sourceTree = "<group>"; };
+		D233BF0B190F3EAD00775672 /* MotionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionService.h; sourceTree = "<group>"; };
+		D233BF0C190F3EAD00775672 /* MotionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionService.m; sourceTree = "<group>"; };
+		D233BF0F190F41A200775672 /* MCPuckView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCPuckView.h; sourceTree = "<group>"; };
+		D233BF10190F41A200775672 /* MCPuckView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCPuckView.m; sourceTree = "<group>"; };
+		D233BF12190F41B000775672 /* MCLevelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLevelView.h; sourceTree = "<group>"; };
+		D233BF13190F41B000775672 /* MCLevelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLevelView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D233BEFF190F366D00775672 /* CoreMotion.framework in Frameworks */,
 				D233BEB5190F2C0C00775672 /* CoreGraphics.framework in Frameworks */,
 				D233BEB9190F2C0C00775672 /* CoreData.framework in Frameworks */,
 				D233BEB7190F2C0C00775672 /* UIKit.framework in Frameworks */,
@@ -103,6 +141,7 @@
 		D233BEB1190F2C0C00775672 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D233BEFE190F366C00775672 /* CoreMotion.framework */,
 				D233BEB2190F2C0C00775672 /* Foundation.framework */,
 				D233BEB4190F2C0C00775672 /* CoreGraphics.framework */,
 				D233BEB6190F2C0C00775672 /* UIKit.framework */,
@@ -115,11 +154,18 @@
 		D233BEBA190F2C0C00775672 /* MazeCraze */ = {
 			isa = PBXGroup;
 			children = (
+				D233BEE7190F2C2700775672 /* Controllers */,
 				D233BEC3190F2C0C00775672 /* MCAppDelegate.h */,
 				D233BEC4190F2C0C00775672 /* MCAppDelegate.m */,
 				D233BEC9190F2C0C00775672 /* Images.xcassets */,
 				D233BEC6190F2C0C00775672 /* MazeCraze.xcdatamodeld */,
+				D233BF0E190F418200775672 /* Views */,
+				D233BEEB190F2C9D00775672 /* Categories */,
+				D233BEEC190F2CC600775672 /* Protocols */,
 				D233BEBB190F2C0C00775672 /* Supporting Files */,
+				D233BEEF190F30E100775672 /* Repo Managers */,
+				D233BEF3190F313B00775672 /* Models */,
+				D233BEF7190F354C00775672 /* Services */,
 			);
 			path = MazeCraze;
 			sourceTree = "<group>";
@@ -131,6 +177,8 @@
 				D233BEBD190F2C0C00775672 /* InfoPlist.strings */,
 				D233BEC0190F2C0C00775672 /* main.m */,
 				D233BEC2190F2C0C00775672 /* MazeCraze-Prefix.pch */,
+				D233BEFB190F359D00775672 /* MCConstants.h */,
+				D233BEFC190F359D00775672 /* MCConstants.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -151,6 +199,77 @@
 				D233BEDA190F2C0C00775672 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D233BEE7190F2C2700775672 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D233BEE8190F2C4700775672 /* MCSuperController.h */,
+				D233BEE9190F2C4700775672 /* MCSuperController.m */,
+				D233BF03190F390900775672 /* MCMazeVC.h */,
+				D233BF04190F390900775672 /* MCMazeVC.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D233BEEB190F2C9D00775672 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		D233BEEC190F2CC600775672 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D233BEEE190F2CE700775672 /* Singleton.h */,
+				D233BF07190F3B6800775672 /* MCMazeVCDelegate.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		D233BEEF190F30E100775672 /* Repo Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D233BEF0190F310500775672 /* MCLevelManager.h */,
+				D233BEF1190F310500775672 /* MCLevelManager.m */,
+				D233BF08190F3BCF00775672 /* MCPuckManager.h */,
+				D233BF09190F3BCF00775672 /* MCPuckManager.m */,
+			);
+			path = "Repo Managers";
+			sourceTree = "<group>";
+		};
+		D233BEF3190F313B00775672 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D233BEF4190F316100775672 /* Level.h */,
+				D233BEF5190F316100775672 /* Level.m */,
+				D233BF00190F38F500775672 /* Puck.h */,
+				D233BF01190F38F500775672 /* Puck.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D233BEF7190F354C00775672 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D233BEF8190F355D00775672 /* SettingService.h */,
+				D233BEF9190F355D00775672 /* SettingService.m */,
+				D233BF0B190F3EAD00775672 /* MotionService.h */,
+				D233BF0C190F3EAD00775672 /* MotionService.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D233BF0E190F418200775672 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D233BF0F190F41A200775672 /* MCPuckView.h */,
+				D233BF10190F41A200775672 /* MCPuckView.m */,
+				D233BF12190F41B000775672 /* MCLevelView.h */,
+				D233BF13190F41B000775672 /* MCLevelView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,8 +368,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D233BEF6190F316100775672 /* Level.m in Sources */,
+				D233BF11190F41A200775672 /* MCPuckView.m in Sources */,
 				D233BEC5190F2C0C00775672 /* MCAppDelegate.m in Sources */,
+				D233BEEA190F2C4700775672 /* MCSuperController.m in Sources */,
+				D233BF02190F38F500775672 /* Puck.m in Sources */,
+				D233BF14190F41B000775672 /* MCLevelView.m in Sources */,
+				D233BF0A190F3BCF00775672 /* MCPuckManager.m in Sources */,
+				D233BF0D190F3EAD00775672 /* MotionService.m in Sources */,
+				D233BEF2190F310500775672 /* MCLevelManager.m in Sources */,
 				D233BEC8190F2C0C00775672 /* MazeCraze.xcdatamodeld in Sources */,
+				D233BEFD190F359D00775672 /* MCConstants.m in Sources */,
+				D233BF05190F390900775672 /* MCMazeVC.m in Sources */,
+				D233BEFA190F355D00775672 /* SettingService.m in Sources */,
 				D233BEC1190F2C0C00775672 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +506,7 @@
 				GCC_PREFIX_HEADER = "MazeCraze/MazeCraze-Prefix.pch";
 				INFOPLIST_FILE = "MazeCraze/MazeCraze-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -389,6 +520,7 @@
 				GCC_PREFIX_HEADER = "MazeCraze/MazeCraze-Prefix.pch";
 				INFOPLIST_FILE = "MazeCraze/MazeCraze-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -454,6 +586,7 @@
 				D233BEE3190F2C0C00775672 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D233BEE4190F2C0C00775672 /* Build configuration list for PBXNativeTarget "MazeCrazeTests" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +595,7 @@
 				D233BEE6190F2C0C00775672 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
