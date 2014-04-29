@@ -20,6 +20,7 @@
 @interface MCMazeVC ()
 
 @property (nonatomic, strong) MCPuckView *puckView;
+@property (nonatomic) CGPoint puckPosition;
 
 @end
 
@@ -41,28 +42,30 @@
     
     Level *level = [self.mazeDelegate levelForMaze:self];
     Puck *puck = [self.mazeDelegate puckForMaze:self];
-    
-    self.puckView = [[MCPuckView alloc] initWithFrame:CGRectMake(level.puckStartPoint.x, level.puckStartPoint.y, puck.puckSize.width, puck.puckSize.height)];
+    self.puckPosition = level.puckStartPoint;
+    self.puckView = [[MCPuckView alloc] initWithFrame:CGRectMake(self.puckPosition.x, self.puckPosition.y, puck.puckSize.width, puck.puckSize.height)];
     [self.view addSubview:self.puckView];
 }
 
 - (void)accelerationDidChange
 {
+    [self movePuckView];
+}
+
+- (void)movePuckView
+{
     Puck *puck = [self.mazeDelegate puckForMaze:self];
     
-    CGPoint moveToPoint = [puck applyForce:CGPointMake([[MotionService sharedInstance] xAccel], -1*[[MotionService sharedInstance] yAccel]) atPosition:self.puckView.frame.origin];
-    
+    CGVector velocity = [puck applyForce:CGVectorMake(10*[[MotionService sharedInstance] xAccel], -10*[[MotionService sharedInstance] yAccel])];
+    CGSize viewSize = self.view.bounds.size;
+    CGPoint maxPuckPosition = CGPointMake(viewSize.width - puck.puckSize.width, viewSize.height - puck.puckSize.height);
+    CGPoint newPuckPosition = CGPointMake(MIN(MAX(self.puckPosition.x + velocity.dx,0),maxPuckPosition.x), MIN(MAX(self.puckPosition.y + velocity.dy,0),maxPuckPosition.y));//Moves the puck and keeps it on the screen
+    self.puckPosition = newPuckPosition;
     [self.puckView setFrame:(CGRect){
-        moveToPoint,
+        self.puckPosition,
         self.puckView.frame.size
     }];
     [self.view setNeedsDisplay];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

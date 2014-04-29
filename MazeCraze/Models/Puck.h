@@ -13,6 +13,6 @@
 
 - (id)initWithSize:(CGSize)size andImageURL:(NSString *)imageURL;
 
-- (CGPoint)applyForce:(CGPoint)force atPosition:(CGPoint)position;
+- (CGVector)applyForce:(CGVector)force;
 
 @end

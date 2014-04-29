@@ -19,9 +19,9 @@
     return self;
 }
 
-- (CGPoint)applyForce:(CGPoint)force atPosition:(CGPoint)position
+- (CGVector)applyForce:(CGVector)force
 {
-    return CGPointMake(position.x + force.x, position.y + force.y);
+    return CGVectorMake(force.dx,force.dy);
 }
 
 @end

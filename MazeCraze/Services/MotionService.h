@@ -10,13 +10,9 @@
 
 @interface MotionService : NSObject <Singleton>
 
-@property (nonatomic) double xRotation;
-@property (nonatomic) double yRotation;
-
 @property (nonatomic) double xAccel;
 @property (nonatomic) double yAccel;
 
 - (void)beginMonitoringMotion;
-
 
 @end
