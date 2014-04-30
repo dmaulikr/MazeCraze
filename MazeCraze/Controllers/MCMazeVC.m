@@ -143,39 +143,41 @@
     Level *level = [self.mazeDelegate levelForMaze:self];
     
     //Based on the direction of the puck, we'll detect collisions with level boundaries and view frame
-    if (puckMovingRight) {
-        xCollision =    ([level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckTopRightRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        ([level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary] &&
-                        [level point:puckBottomRightRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        !(CGRectContainsPoint(self.levelView.frame, puckTopRight) ||
-                          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
-    } else {
-        xCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckTopLeftLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        ([level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomLeftLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
-                          CGRectContainsPoint(self.levelView.frame, puckBottomLeft));
-    }
-    
-    if (puckMovingDown) {
-        yCollision =    ([level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomBottomLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        ([level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        !(CGRectContainsPoint(self.levelView.frame, puckBottomLeft) ||
-                          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+    for (NSNumber *key in level.blockingBoundaryKeys) {
+        NSUInteger intKey = [key integerValue];
+        if (puckMovingRight) {
+            xCollision = xCollision || ([level point:puckTopRight intersectsObjectOfType:intKey] &&
+                                        [level point:puckTopRightRight intersectsObjectOfType:intKey]) ||
+                                       ([level point:puckBottomRight intersectsObjectOfType:intKey] &&
+                                        [level point:puckBottomRightRight intersectsObjectOfType:intKey]) ||
+                                      !(CGRectContainsPoint(self.levelView.frame, puckTopRight) ||
+                                        CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+        } else {
+            xCollision = xCollision || ([level point:puckTopLeft intersectsObjectOfType:intKey] &&
+                                        [level point:puckTopLeftLeft intersectsObjectOfType:intKey]) ||
+                                       ([level point:puckBottomLeft intersectsObjectOfType:intKey] &&
+                                        [level point:puckBottomLeftLeft intersectsObjectOfType:intKey]) ||
+                                      !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                                        CGRectContainsPoint(self.levelView.frame, puckBottomLeft));
+        }
         
-    } else {
-        yCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckTopTopLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        ([level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckTopTopRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
-                          CGRectContainsPoint(self.levelView.frame, puckTopRight));
+        if (puckMovingDown) {
+            yCollision = yCollision || ([level point:puckBottomLeft intersectsObjectOfType:intKey] &&
+                                        [level point:puckBottomBottomLeft intersectsObjectOfType:intKey]) ||
+                                       ([level point:puckBottomRight intersectsObjectOfType:intKey] &&
+                                        [level point:puckBottomBottomRight intersectsObjectOfType:intKey]) ||
+                                      !(CGRectContainsPoint(self.levelView.frame, puckBottomLeft) ||
+                                        CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+            
+        } else {
+            yCollision = yCollision || ([level point:puckTopLeft intersectsObjectOfType:intKey] &&
+                                        [level point:puckTopTopLeft intersectsObjectOfType:intKey]) ||
+                                       ([level point:puckTopRight intersectsObjectOfType:intKey] &&
+                                        [level point:puckTopTopRight intersectsObjectOfType:intKey]) ||
+                                      !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                                        CGRectContainsPoint(self.levelView.frame, puckTopRight));
+        }
     }
-    
     return CGVectorMake(!xCollision * velocity.dx, !yCollision * velocity.dy);
 }
 

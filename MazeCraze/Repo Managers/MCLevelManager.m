@@ -33,9 +33,15 @@
                          [NSValue valueWithCGRect:CGRectMake(120, 230, 160, 10)],
                          [NSValue valueWithCGRect:CGRectMake(270, 230, 10, 100)],
                          [NSValue valueWithCGRect:CGRectMake(200, 280, 10, 200)],
+                         [NSValue valueWithCGRect:CGRectMake(200, 400, 120, 10)],
+                         [NSValue valueWithCGRect:CGRectMake(110, 508, 100, 10)],
 
                          nil];
-    NSSet *goals = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(300, 0, 20, 40)], nil];
+    NSSet *pits = [NSSet setWithObjects:
+                   [NSValue valueWithCGRect:CGRectMake(280, 528, 40, 40)],
+                   nil];
+    
+    NSSet *goals = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(300, 0, 20, 50)], nil];
     
     Level *level = [[Level alloc] initWithPuckStart:startPoint levelObjects:@{
                                                                               [NSNumber numberWithInteger:levelObjectTypeBoundary]:@{
@@ -48,6 +54,11 @@
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_COLOR:[UIColor greenColor],
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_URL:@""
                                                                                       },
+                                                                              [NSNumber numberWithInteger:LevelObjectTypePit]:@{
+                                                                                      MC_KEY_LEVEL_OBJECTS:pits,
+                                                                                      MC_KEY_LEVEL_OBJECT_BACKGROUND_COLOR:[UIColor redColor],
+                                                                                      MC_KEY_LEVEL_OBJECT_BACKGROUND_URL:@""
+                                                                                      }
                                                                               }];
     [level setBlockingBoundaryKeys:[NSSet setWithObjects:[NSNumber numberWithInteger:levelObjectTypeBoundary], nil]];//Let the level know which set of objects will block the puck's movement
     [level setLevelBackgroundColor:[UIColor darkGrayColor]];

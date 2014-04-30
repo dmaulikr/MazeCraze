@@ -20,6 +20,7 @@ FOUNDATION_EXPORT NSString *const MC_NOTI_ACCEL_CHANGE;
 typedef NS_ENUM(NSUInteger, LevelObjectType){
     levelObjectTypeBoundary,
     levelObjectTypeGoal,
+    LevelObjectTypePit,
     levelObjectTypeCount
 };
 
