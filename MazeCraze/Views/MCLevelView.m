@@ -14,14 +14,23 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor redColor]];
+//        [self setBackgroundColor:[UIColor redColor]];
     }
     return self;
 }
 
-//- (void)drawRect:(CGRect)rect
-//{
-//    // Drawing code
-//}
+- (void)drawRect:(CGRect)rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
+    
+    CGContextClearRect(context, rect);
+    CGContextFillRect(context, rect);
+    
+    if (self.backgroundImage) {
+        [self.backgroundImage drawAsPatternInRect:rect];
+    }
+    CGContextRelease(context);
+}
 
 @end

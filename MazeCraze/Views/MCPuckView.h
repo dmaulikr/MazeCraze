@@ -10,4 +10,7 @@
 
 @interface MCPuckView : UIView
 
+@property (nonatomic, strong) UIImage *puckImage;
+@property (nonatomic, strong) UIColor *puckColor;
+
 @end

@@ -23,7 +23,9 @@
 
 - (Puck *)defaultPuck
 {
-    Puck *puck = [[Puck alloc] initWithSize:CGSizeMake(10, 10) andImageURL:nil];
+    Puck *puck = [[Puck alloc] initWithSize:CGSizeMake(20, 20)];
+    [puck setPuckImageURL:@"icon_default_puck.png"];
+    [puck setPuckColor:[UIColor clearColor]];
     return puck;
 }
 

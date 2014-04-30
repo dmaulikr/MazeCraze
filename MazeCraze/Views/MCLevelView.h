@@ -10,4 +10,8 @@
 
 @interface MCLevelView : UIView
 
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIImage *backgroundImage;
+@property (nonatomic, strong) UIImage *boundaryBackgroundImage;
+
 @end

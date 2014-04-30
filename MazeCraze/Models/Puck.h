@@ -10,8 +10,9 @@
 
 @property (nonatomic) CGSize puckSize;
 @property (nonatomic, strong) NSString *puckImageURL;
+@property (nonatomic, strong) UIColor *puckColor;
 
-- (id)initWithSize:(CGSize)size andImageURL:(NSString *)imageURL;
+- (id)initWithSize:(CGSize)size;
 
 - (CGVector)applyForce:(CGVector)force; // We'll use this to allow different pucks to respond to forces in different ways
 

@@ -10,11 +10,10 @@
 
 @implementation Puck
 
-- (id)initWithSize:(CGSize)size andImageURL:(NSString *)imageURL
+- (id)initWithSize:(CGSize)size
 {
     if (self = [super init]) {
         self.puckSize = size;
-        self.puckImageURL = imageURL;
     }
     return self;
 }

@@ -10,6 +10,9 @@
 
 //Keys
 FOUNDATION_EXPORT NSString *const MC_KEY_CURRENT_LEVEL;
+FOUNDATION_EXPORT NSString *const MC_KEY_LEVEL_OBJECTS;// = @"objects";
+FOUNDATION_EXPORT NSString *const MC_KEY_LEVEL_OBJECT_BACKGROUND_COLOR;// = @"object background color";
+FOUNDATION_EXPORT NSString *const MC_KEY_LEVEL_OBJECT_BACKGROUND_URL;// = @"object background URL";
 
 //Global Notifications
 FOUNDATION_EXPORT NSString *const MC_NOTI_ACCEL_CHANGE;

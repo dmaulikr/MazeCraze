@@ -27,13 +27,13 @@
 
 - (BOOL)point:(CGPoint)point intersectsObjectOfType:(LevelObjectType)type
 {
-    NSSet *objects;
-    if ((objects = [self.levelObjects objectForKey:[NSNumber numberWithInteger:type]])) {
-        for (NSValue *object in objects) {
-            CGRect objectRect = [object CGRectValue];
-            if (CGRectContainsPoint(objectRect, point)) {
-                return YES;
-            }
+    NSDictionary *objects = [self.levelObjects objectForKey:[NSNumber numberWithInteger:type]];
+    NSSet *objectFrames = [objects objectForKey:MC_KEY_LEVEL_OBJECTS];
+
+    for (NSValue *val in objectFrames) {
+        CGRect frame = [val CGRectValue];
+        if (CGRectContainsPoint(frame, point)) {
+            return YES;
         }
     }
     return NO;

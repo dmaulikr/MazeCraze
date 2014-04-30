@@ -23,9 +23,19 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, self.puckColor.CGColor);
+
     CGContextClearRect(context, rect);
-    CGContextSetFillColorWithColor(context, [UIColor yellowColor].CGColor);
-    CGContextFillEllipseInRect(context, rect);
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddEllipseInRect(path, NULL, rect);
+    CGContextAddPath(context, path);
+    CGContextFillPath(context);
+//    CGContextClip(context);
+    CGPathRelease(path);
+    
+    if (self.puckImage) {
+        [self.puckImage drawInRect:rect];
+    }
     CGContextRelease(context);
 }
 

@@ -12,7 +12,9 @@
 
 @property (nonatomic, strong, readonly) NSValue *puckStart;
 @property (nonatomic, strong) NSDictionary *levelObjects;
-@property (nonatomic, strong) UIImage *objectBackground;
+@property (nonatomic, strong) UIColor *levelBackgroundColor;
+@property (nonatomic, strong) NSString *levelBackgroundURL;
+@property (nonatomic, strong) NSSet *blockingBoundaryKeys;
 
 - (id)initWithPuckStart:(CGPoint)startPoint levelObjects:(NSDictionary *)objects;
 - (BOOL)point:(CGPoint)point intersectsObjectOfType:(LevelObjectType)type;
