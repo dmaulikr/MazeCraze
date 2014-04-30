@@ -65,6 +65,7 @@
     [maze setMazeDelegate:self];
     [self addChildViewController:maze];
     [self.view addSubview:maze.view];
+    [maze setMazeActive:YES];
 }
 
 #pragma mark - MCMazeVCDelegate Methods
@@ -79,8 +80,9 @@
     return [[MCPuckManager sharedInstance] defaultPuck];
 }
 
-- (void)mazeCompleted
+- (void)completedMaze:(MCMazeVC *)maze
 {
+    [maze setMazeActive:NO];
     UIAlertView *completeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Level Complete", @"")
                                                             message:NSLocalizedString(@"Congratulations! You've completed the level", @"")
                                                            delegate:self
@@ -89,8 +91,9 @@
     [completeAlert show];
 }
 
-- (void)mazeFailed
+- (void)failedMaze:(MCMazeVC *)maze
 {
+    [maze setMazeActive:NO];
     UIAlertView *failedAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Level Failed", @"")
                                                           message:NSLocalizedString(@"Oh No! You've failed this level", @"")
                                                          delegate:self

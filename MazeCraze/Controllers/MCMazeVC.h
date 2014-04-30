@@ -10,5 +10,6 @@
 @interface MCMazeVC : UIViewController
 
 @property (nonatomic, weak) id<MCMazeVCDelegate>mazeDelegate;
+@property (nonatomic) BOOL mazeActive;
 
 @end

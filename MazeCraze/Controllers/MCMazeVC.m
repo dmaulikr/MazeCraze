@@ -30,14 +30,34 @@
 @end
 
 @implementation MCMazeVC
+@synthesize mazeActive = _mazeActive;
+@synthesize tickTimer = _tickTimer;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//    }
+//    return self;
+//}
+
+- (void)setMazeActive:(BOOL)mazeActive
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.tickTimer = [NSTimer scheduledTimerWithTimeInterval:TICK_TIME target:self selector:@selector(movePuckView) userInfo:nil repeats:YES];
+    _mazeActive = mazeActive;
+    if (mazeActive) {
+        [self tickTimer];
+    } else if (_tickTimer){
+        [[self tickTimer] invalidate];
+        _tickTimer = nil;
     }
-    return self;
+}
+
+- (NSTimer *)tickTimer
+{
+    if (!_tickTimer) {
+        _tickTimer = [NSTimer scheduledTimerWithTimeInterval:TICK_TIME target:self selector:@selector(movePuckView) userInfo:nil repeats:YES];
+    }
+    return _tickTimer;
 }
 
 - (void)viewDidLoad
@@ -103,9 +123,9 @@
     }];
     LevelObjectType contactedObject = [self collisionWithNonBlockingObjectsAtPoint:self.puckPosition];
     if (contactedObject == levelObjectTypeGoal) {
-        [self.mazeDelegate mazeCompleted];
+        [self.mazeDelegate completedMaze:self];
     } else if (contactedObject == levelObjectTypePit) {
-        [self.mazeDelegate mazeFailed];
+        [self.mazeDelegate failedMaze:self];
     }
     [self.view setNeedsDisplay];
 }

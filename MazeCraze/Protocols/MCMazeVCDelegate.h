@@ -13,7 +13,7 @@
 
 - (Level *)levelForMaze:(MCMazeVC *)maze;
 - (Puck *)puckForMaze:(MCMazeVC *)maze;
-- (void)mazeCompleted;
-- (void)mazeFailed; // Used if the puck falls into a trap or player goes over time
+- (void)completedMaze:(MCMazeVC *)maze;
+- (void)failedMaze:(MCMazeVC *)maze; // Used if the puck falls into a trap or player goes over time
 
 @end
