@@ -10,4 +10,16 @@
 
 @implementation SettingService
 
++ (void)saveSetting:(id)value forKey:(NSString *)key
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:value forKey:key];
+    [defaults synchronize];
+}
+
++ (id)loadSettingForKey:(NSString *)key
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
+
 @end

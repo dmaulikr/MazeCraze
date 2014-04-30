@@ -8,6 +8,6 @@
 
 @protocol MCMazeVCDelegate;
 
-@interface MCSuperController : UIViewController <Singleton, MCMazeVCDelegate>
+@interface MCSuperController : UIViewController <Singleton, MCMazeVCDelegate, UIAlertViewDelegate>
 
 @end

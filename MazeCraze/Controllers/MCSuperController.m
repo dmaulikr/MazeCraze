@@ -61,11 +61,19 @@
 
 - (void)presentMaze
 {
-    MCMazeVC *maze = [[MCMazeVC alloc] initWithNibName:nil bundle:nil];
-    [maze setMazeDelegate:self];
-    [self addChildViewController:maze];
-    [self.view addSubview:maze.view];
-    [maze setMazeActive:YES];
+    self.currentMaze = [[MCMazeVC alloc] initWithNibName:nil bundle:nil];
+    [self.currentMaze setMazeDelegate:self];
+    [self addChildViewController:self.currentMaze];
+    [self.view addSubview:self.currentMaze.view];
+    [self.currentMaze setMazeActive:YES];
+}
+
+- (void)resetMaze
+{
+    [self.view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.childViewControllers makeObjectsPerformSelector:@selector(removeFromParentViewController)];
+    self.currentMaze = nil;
+    [self presentMaze];
 }
 
 #pragma mark - MCMazeVCDelegate Methods
@@ -83,6 +91,7 @@
 - (void)completedMaze:(MCMazeVC *)maze
 {
     [maze setMazeActive:NO];
+    [[MCLevelManager sharedInstance] incrementLevel];
     UIAlertView *completeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Level Complete", @"")
                                                             message:NSLocalizedString(@"Congratulations! You've completed the level", @"")
                                                            delegate:self
@@ -100,6 +109,13 @@
                                                 cancelButtonTitle:NSLocalizedString(@"Try Again", @"")
                                                 otherButtonTitles:nil];
     [failedAlert show];
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self resetMaze];
 }
 
 @end

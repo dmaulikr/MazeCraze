@@ -12,4 +12,6 @@
 @property (nonatomic, weak) id<MCMazeVCDelegate>mazeDelegate;
 @property (nonatomic) BOOL mazeActive;
 
+- (void)resetMaze;
+
 @end

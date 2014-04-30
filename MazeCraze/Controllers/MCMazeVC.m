@@ -46,7 +46,9 @@
     _mazeActive = mazeActive;
     if (mazeActive) {
         [self tickTimer];
+        [[MotionService sharedInstance] beginMonitoringMotion];
     } else if (_tickTimer){
+        [[MotionService sharedInstance] endMonitoringMotion];
         [[self tickTimer] invalidate];
         _tickTimer = nil;
     }
@@ -63,8 +65,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[MotionService sharedInstance] beginMonitoringMotion];
-    
+    [self buildMaze];
+}
+
+- (void)buildMaze
+{
     Level *level = [self.mazeDelegate levelForMaze:self];
     self.levelView = [[MCLevelView alloc] initWithFrame:self.view.bounds];
     [self.levelView setBackgroundColor:level.levelBackgroundColor];
@@ -101,9 +106,12 @@
     [self.view addSubview:self.puckView];
 }
 
-- (void)accelerationDidChange
+- (void)resetMaze
 {
-    [self movePuckView];
+    [[self.view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.puckView = nil;
+    self.levelView = nil;
+    [self buildMaze];
 }
 
 - (void)movePuckView
@@ -126,8 +134,9 @@
         [self.mazeDelegate completedMaze:self];
     } else if (contactedObject == levelObjectTypePit) {
         [self.mazeDelegate failedMaze:self];
+    } else {
+        [self.view setNeedsDisplay];
     }
-    [self.view setNeedsDisplay];
 }
 
 - (CGVector)velocityForPuck
@@ -146,7 +155,6 @@
     CGPoint puckTopLeft = predictedPuckPosition;
     CGPoint puckTopLeftLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + detectorPointSpacing);
     CGPoint puckTopTopLeft = CGPointMake(predictedPuckPosition.x + detectorPointSpacing, predictedPuckPosition.y);
-    
     
     CGPoint puckTopRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y);
     CGPoint puckTopRightRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + detectorPointSpacing);

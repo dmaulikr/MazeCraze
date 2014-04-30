@@ -10,5 +10,6 @@
 @interface MCLevelManager : NSObject <Singleton>
 
 - (Level *)getCurrentLevel;
+- (void)incrementLevel;
 
 @end

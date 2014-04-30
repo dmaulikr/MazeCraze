@@ -14,5 +14,6 @@
 @property (nonatomic) double yAccel;
 
 - (void)beginMonitoringMotion;
+- (void)endMonitoringMotion;
 
 @end

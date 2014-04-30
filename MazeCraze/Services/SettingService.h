@@ -10,7 +10,7 @@
 
 @interface SettingService : NSObject
 
-- (void)saveSetting:(id)value forKey:(NSString *)key;
-- (id)loadSettingForKey:(NSString *)key;
++ (void)saveSetting:(id)value forKey:(NSString *)key;
++ (id)loadSettingForKey:(NSString *)key;
 
 @end

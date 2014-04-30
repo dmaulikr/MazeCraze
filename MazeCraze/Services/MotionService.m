@@ -46,6 +46,12 @@
     }];
 }
 
+- (void)endMonitoringMotion
+{
+    [self.motionManager stopAccelerometerUpdates];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MC_NOTI_ACCEL_CHANGE object:nil];
+}
+
 - (void)deviceDidAccelerateWithAcceleration:(CMAcceleration)acceleration
 {
     [self setXAccel:acceleration.x];
