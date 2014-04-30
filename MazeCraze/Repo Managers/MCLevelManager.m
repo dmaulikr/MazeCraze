@@ -23,11 +23,19 @@
 
 - (Level *)getCurrentLevel
 {
-    CGPoint startPoint = CGPointMake(10, 10);
+    CGPoint startPoint = CGPointMake(10, 566);
     NSSet *boundaries = [NSSet setWithObjects:
-                         [NSValue valueWithCGRect:CGRectMake(80, 80, 20, 200)],
+                         [NSValue valueWithCGRect:CGRectMake(60, 50, 260, 10)],
+                         [NSValue valueWithCGRect:CGRectMake(0, 110, 260, 10)],
+                         [NSValue valueWithCGRect:CGRectMake(110, 110, 10, 406)],
+                         [NSValue valueWithCGRect:CGRectMake(50, 160, 10, 406)],
+                         [NSValue valueWithCGRect:CGRectMake(160, 170, 160, 10)],
+                         [NSValue valueWithCGRect:CGRectMake(120, 230, 160, 10)],
+                         [NSValue valueWithCGRect:CGRectMake(270, 230, 10, 100)],
+                         [NSValue valueWithCGRect:CGRectMake(200, 280, 10, 200)],
+
                          nil];
-    NSSet *goals = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(300, 548, 20, 20)], nil];
+    NSSet *goals = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(300, 0, 20, 40)], nil];
     
     Level *level = [[Level alloc] initWithPuckStart:startPoint levelObjects:@{
                                                                               [NSNumber numberWithInteger:levelObjectTypeBoundary]:@{

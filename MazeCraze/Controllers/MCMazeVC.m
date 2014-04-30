@@ -108,17 +108,32 @@
 {
     Puck *puck = [self.mazeDelegate puckForMaze:self];
     
-    double xVelocity = self.puckVelocity.dx + 200*[[MotionService sharedInstance] xAccel]*TICK_TIME;
-    double yVelocity = self.puckVelocity.dy + -200*[[MotionService sharedInstance] yAccel]*TICK_TIME;
+    double xVelocity = self.puckVelocity.dx + 100*[[MotionService sharedInstance] xAccel]*TICK_TIME;
+    double yVelocity = self.puckVelocity.dy + -100*[[MotionService sharedInstance] yAccel]*TICK_TIME;
     
     CGVector velocity = [puck applyForce:CGVectorMake(xVelocity, yVelocity)];
     CGPoint predictedPuckPosition = CGPointMake(self.puckPosition.x + velocity.dx, self.puckPosition.y + velocity.dy);//Where the puck might end up granted there are no collisions
     
-    CGPoint puckTopLeft = predictedPuckPosition;
-    CGPoint puckTopRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y);
-    CGPoint puckBottomLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + puck.puckSize.height);
-    CGPoint puckBottomRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + puck.puckSize.height);
+    // We create 3 "detector points" per corner of the puck. These points give us the ability to detect a collision and which side of the puck the collision was on, even if the full side of the puck isnt involved with the collision. This variable says how far apart the points shold be from the exact corners
+    CGFloat detectorPointSpacing = 4.0f;
     
+    CGPoint puckTopLeft = predictedPuckPosition;
+    CGPoint puckTopLeftLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + detectorPointSpacing);
+    CGPoint puckTopTopLeft = CGPointMake(predictedPuckPosition.x + detectorPointSpacing, predictedPuckPosition.y);
+    
+    
+    CGPoint puckTopRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y);
+    CGPoint puckTopRightRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + detectorPointSpacing);
+    CGPoint puckTopTopRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width - detectorPointSpacing, predictedPuckPosition.y);
+    
+    CGPoint puckBottomLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + puck.puckSize.height);
+    CGPoint puckBottomLeftLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + puck.puckSize.height - detectorPointSpacing);
+    CGPoint puckBottomBottomLeft = CGPointMake(predictedPuckPosition.x + detectorPointSpacing, predictedPuckPosition.y + puck.puckSize.height);
+
+    CGPoint puckBottomRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + puck.puckSize.height);
+    CGPoint puckBottomRightRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + puck.puckSize.height - detectorPointSpacing);
+    CGPoint puckBottomBottomRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width - detectorPointSpacing, predictedPuckPosition.y + puck.puckSize.height);
+
     BOOL puckMovingRight = velocity.dx > 0;
     BOOL puckMovingDown = velocity.dy > 0;
     
@@ -130,27 +145,35 @@
     //Based on the direction of the puck, we'll detect collisions with level boundaries and view frame
     if (puckMovingRight) {
         xCollision =    ([level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-        !(CGRectContainsPoint(self.levelView.frame, puckTopRight) ||
-          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+                         [level point:puckTopRightRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        ([level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary] &&
+                        [level point:puckBottomRightRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopRight) ||
+                          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
     } else {
         xCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
-        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
-          CGRectContainsPoint(self.levelView.frame, puckBottomLeft));
+                         [level point:puckTopLeftLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        ([level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckBottomLeftLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                          CGRectContainsPoint(self.levelView.frame, puckBottomLeft));
     }
     
     if (puckMovingDown) {
         yCollision =    ([level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-        !(CGRectContainsPoint(self.levelView.frame, puckBottomLeft) ||
-          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+                         [level point:puckBottomBottomLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        ([level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckBottomBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckBottomLeft) ||
+                          CGRectContainsPoint(self.levelView.frame, puckBottomRight));
         
     } else {
         yCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
-                         [level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
-        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
-          CGRectContainsPoint(self.levelView.frame, puckTopRight));
+                         [level point:puckTopTopLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        ([level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckTopTopRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                          CGRectContainsPoint(self.levelView.frame, puckTopRight));
     }
     
     return CGVectorMake(!xCollision * velocity.dx, !yCollision * velocity.dy);
