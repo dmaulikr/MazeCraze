@@ -18,9 +18,10 @@ FOUNDATION_EXPORT NSString *const MC_KEY_LEVEL_OBJECT_BACKGROUND_URL;// = @"obje
 FOUNDATION_EXPORT NSString *const MC_NOTI_ACCEL_CHANGE;
 
 typedef NS_ENUM(NSUInteger, LevelObjectType){
+    levelObjectTypeNone,
     levelObjectTypeBoundary,
     levelObjectTypeGoal,
-    LevelObjectTypePit,
+    levelObjectTypePit,
     levelObjectTypeCount
 };
 

@@ -101,6 +101,12 @@
         self.puckPosition,
         self.puckView.frame.size
     }];
+    LevelObjectType contactedObject = [self collisionWithNonBlockingObjectsAtPoint:self.puckPosition];
+    if (contactedObject == levelObjectTypeGoal) {
+        [self.mazeDelegate mazeCompleted];
+    } else if (contactedObject == levelObjectTypePit) {
+        [self.mazeDelegate mazeFailed];
+    }
     [self.view setNeedsDisplay];
 }
 
@@ -179,6 +185,20 @@
         }
     }
     return CGVectorMake(!xCollision * velocity.dx, !yCollision * velocity.dy);
+}
+
+- (LevelObjectType)collisionWithNonBlockingObjectsAtPoint:(CGPoint)point
+{
+    Level *level = [self.mazeDelegate levelForMaze:self];
+    for (int objectType = levelObjectTypeNone; objectType < levelObjectTypeCount; objectType++) {
+        if (objectType == levelObjectTypeNone || [level.blockingBoundaryKeys containsObject:[NSNumber numberWithInteger:objectType]]) {
+            continue;
+        }
+        if ([level point:point intersectsObjectOfType:objectType]) {
+            return objectType;
+        }
+    }
+    return levelObjectTypeNone;
 }
 
 @end

@@ -54,7 +54,7 @@
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_COLOR:[UIColor greenColor],
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_URL:@""
                                                                                       },
-                                                                              [NSNumber numberWithInteger:LevelObjectTypePit]:@{
+                                                                              [NSNumber numberWithInteger:levelObjectTypePit]:@{
                                                                                       MC_KEY_LEVEL_OBJECTS:pits,
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_COLOR:[UIColor redColor],
                                                                                       MC_KEY_LEVEL_OBJECT_BACKGROUND_URL:@""
