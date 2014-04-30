@@ -17,10 +17,15 @@
 #import "MCPuckView.h"
 #import "Puck.h"
 
+#define TICK_TIME 1.0f/30.0f
+
 @interface MCMazeVC ()
 
+@property (nonatomic, strong) NSTimer *tickTimer;
+@property (nonatomic, strong) MCLevelView *levelView;
 @property (nonatomic, strong) MCPuckView *puckView;
 @property (nonatomic) CGPoint puckPosition;
+@property (nonatomic) CGVector puckVelocity;
 
 @end
 
@@ -30,7 +35,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accelerationDidChange) name:MC_NOTI_ACCEL_CHANGE object:nil];
+        self.tickTimer = [NSTimer scheduledTimerWithTimeInterval:TICK_TIME target:self selector:@selector(movePuckView) userInfo:nil repeats:YES];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accelerationDidChange) name:MC_NOTI_ACCEL_CHANGE object:nil];
     }
     return self;
 }
@@ -41,8 +47,22 @@
     [[MotionService sharedInstance] beginMonitoringMotion];
     
     Level *level = [self.mazeDelegate levelForMaze:self];
+    self.levelView = [[MCLevelView alloc] initWithFrame:self.view.bounds];
+    for (NSString *key in level.levelObjects) {
+        NSSet *objects = [level.levelObjects objectForKey:key];
+        for (NSValue *val in objects) {
+            CGRect rect = [val CGRectValue];
+            UIView *boundaryView = [[UIView alloc] initWithFrame:rect];
+            [boundaryView setBackgroundColor:[UIColor blackColor]];
+            [self.levelView addSubview:boundaryView];
+        }
+    }
+    
+    [self.view addSubview:self.levelView];
+    
     Puck *puck = [self.mazeDelegate puckForMaze:self];
     self.puckPosition = level.puckStartPoint;
+    self.puckVelocity = CGVectorMake(0, 0);
     self.puckView = [[MCPuckView alloc] initWithFrame:CGRectMake(self.puckPosition.x, self.puckPosition.y, puck.puckSize.width, puck.puckSize.height)];
     [self.view addSubview:self.puckView];
 }
@@ -55,17 +75,76 @@
 - (void)movePuckView
 {
     Puck *puck = [self.mazeDelegate puckForMaze:self];
+
+    double xVelocity = self.puckVelocity.dx + 200*[[MotionService sharedInstance] xAccel]*TICK_TIME;
+    double yVelocity = self.puckVelocity.dy + -200*[[MotionService sharedInstance] yAccel]*TICK_TIME;
     
-    CGVector velocity = [puck applyForce:CGVectorMake(10*[[MotionService sharedInstance] xAccel], -10*[[MotionService sharedInstance] yAccel])];
+    CGVector velocity = [puck applyForce:CGVectorMake(xVelocity, yVelocity)];
     CGSize viewSize = self.view.bounds.size;
     CGPoint maxPuckPosition = CGPointMake(viewSize.width - puck.puckSize.width, viewSize.height - puck.puckSize.height);
-    CGPoint newPuckPosition = CGPointMake(MIN(MAX(self.puckPosition.x + velocity.dx,0),maxPuckPosition.x), MIN(MAX(self.puckPosition.y + velocity.dy,0),maxPuckPosition.y));//Moves the puck and keeps it on the screen
+    CGPoint predictedPuckPosition = CGPointMake(self.puckPosition.x + velocity.dx, self.puckPosition.y + velocity.dy);//Where the puck might end up granted there are no collisions
+    
+    CGPoint puckTopLeft = predictedPuckPosition;
+    CGPoint puckTopRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y);
+    CGPoint puckBottomLeft = CGPointMake(predictedPuckPosition.x, predictedPuckPosition.y + puck.puckSize.height);
+    CGPoint puckBottomRight = CGPointMake(predictedPuckPosition.x + puck.puckSize.width, predictedPuckPosition.y + puck.puckSize.height);
+    
+    BOOL puckMovingRight = velocity.dx > 0;
+    BOOL puckMovingDown = velocity.dy > 0;
+    
+    BOOL xCollision = NO;
+    BOOL yCollision = NO;
+    
+    Level *level = [self.mazeDelegate levelForMaze:self];
+    
+    if (puckMovingRight) {
+        xCollision =    ([level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopRight) ||
+                         CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+    } else {
+        xCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                         CGRectContainsPoint(self.levelView.frame, puckBottomLeft));
+    }
+    
+    if (puckMovingDown) {
+        yCollision =    ([level point:puckBottomLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckBottomRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckBottomLeft) ||
+                         CGRectContainsPoint(self.levelView.frame, puckBottomRight));
+
+    } else {
+        yCollision =    ([level point:puckTopLeft intersectsObjectOfType:levelObjectTypeBoundary] &&
+                         [level point:puckTopRight intersectsObjectOfType:levelObjectTypeBoundary]) ||
+                        !(CGRectContainsPoint(self.levelView.frame, puckTopLeft) ||
+                         CGRectContainsPoint(self.levelView.frame, puckTopRight));
+    }
+    
+    velocity = CGVectorMake(!xCollision * velocity.dx, !yCollision * velocity.dy);
+    CGPoint newPuckPosition = CGPointMake(MIN(MAX(self.puckPosition.x + velocity.dx,0),maxPuckPosition.x), MIN(MAX(self.puckPosition.y + velocity.dy,0),maxPuckPosition.y));//Where the puck might end up granted there are no collisions
+    self.puckVelocity = velocity;
+//    NSLog(@"VELX:%f VELY:%f", velocity.dx, velocity.dy);
     self.puckPosition = newPuckPosition;
     [self.puckView setFrame:(CGRect){
         self.puckPosition,
         self.puckView.frame.size
     }];
     [self.view setNeedsDisplay];
+}
+
+- (BOOL)detectXCollision
+{
+    Puck *puck = [self.mazeDelegate puckForMaze:self];
+    CGSize viewSize = self.view.bounds.size;
+    CGPoint maxPuckPosition = CGPointMake(viewSize.width - puck.puckSize.width, viewSize.height - puck.puckSize.height);
+    return self.puckPosition.x > maxPuckPosition.x;
+}
+
+- (BOOL)detectYCollision
+{
+    return NO;
 }
 
 @end

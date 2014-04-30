@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self setBackgroundColor:[UIColor clearColor]];
     }
     return self;
 }
@@ -23,7 +23,8 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextClearRect(context, rect);
+    CGContextSetFillColorWithColor(context, [UIColor yellowColor].CGColor);
     CGContextFillEllipseInRect(context, rect);
     CGContextRelease(context);
 }

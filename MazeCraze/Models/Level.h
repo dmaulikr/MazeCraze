@@ -11,10 +11,11 @@
 @interface Level : NSObject
 
 @property (nonatomic, strong, readonly) NSValue *puckStart;
-@property (nonatomic, strong) NSSet *levelBoundaries;
-@property (nonatomic, strong) NSSet *levelGoals;
+@property (nonatomic, strong) NSDictionary *levelObjects;
+@property (nonatomic, strong) UIImage *objectBackground;
 
-- (id)initWithPuckStart:(CGPoint)startPoint mazeBoundaires:(NSSet *)bounds andGoals:(NSSet *)goals;
+- (id)initWithPuckStart:(CGPoint)startPoint levelObjects:(NSDictionary *)objects;
+- (BOOL)point:(CGPoint)point intersectsObjectOfType:(LevelObjectType)type;
 - (CGPoint)puckStartPoint;
 
 @end

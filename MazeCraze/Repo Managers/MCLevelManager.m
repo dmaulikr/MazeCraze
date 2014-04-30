@@ -24,7 +24,13 @@
 - (Level *)getCurrentLevel
 {
     CGPoint startPoint = CGPointMake(10, 10);
-    Level *level = [[Level alloc] initWithPuckStart:startPoint mazeBoundaires:nil andGoals:nil];
+    NSSet *boundaries = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(100, 0, 20, 200)], nil];
+    NSSet *goals = [NSSet setWithObjects:[NSValue valueWithCGRect:CGRectMake(300, 548, 20, 20)], nil];
+    
+    Level *level = [[Level alloc] initWithPuckStart:startPoint levelObjects:@{
+                                                                              [NSNumber numberWithInteger:levelObjectTypeBoundary]:boundaries,
+                                                                              [NSNumber numberWithInteger:levelObjectTypeGoal]:goals
+                                                                              }];
     return level;
 }
 
