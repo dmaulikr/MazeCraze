@@ -36,7 +36,6 @@
     if (self.puckImage) {
         [self.puckImage drawInRect:rect];
     }
-    CGContextRelease(context);
 }
 
 @end

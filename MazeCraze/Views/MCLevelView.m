@@ -30,7 +30,6 @@
     if (self.backgroundImage) {
         [self.backgroundImage drawAsPatternInRect:rect];
     }
-    CGContextRelease(context);
 }
 
 @end
